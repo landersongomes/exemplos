@@ -12,7 +12,7 @@ uses
   Fmx.Bind.DBEngExt, FMX.StdCtrls, FMX.Controls.Presentation,
   Data.Bind.Components, Data.Bind.DBScope, FMX.ListView, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, REST.Response.Adapter, REST.Client,
-  Data.Bind.ObjectScope, FMX.Objects, System.ImageList, FMX.ImgList;
+  Data.Bind.ObjectScope, FMX.Objects, System.ImageList, FMX.ImgList, FMX.Effects;
 
 type
   TForm1 = class(TForm)
@@ -26,7 +26,6 @@ type
     BindingsList1: TBindingsList;
     LinkListControlToField1: TLinkListControlToField;
     ToolBar1: TToolBar;
-    Button1: TButton;
     ListView2: TListView;
     RESTClient2: TRESTClient;
     RESTRequest2: TRESTRequest;
@@ -35,6 +34,9 @@ type
     FDMemTable2: TFDMemTable;
     Image1: TImage;
     ImageList1: TImageList;
+    Image2: TImage;
+    Button1: TButton;
+    ShadowEffect1: TShadowEffect;
     procedure ListView1ItemClick(const Sender: TObject;
       const AItem: TListViewItem);
     procedure Button1Click(Sender: TObject);

@@ -18,7 +18,7 @@ Coordinates=577,40,84,33
 Visible=True
 
 []
-Coordinates=396,116,53,51
+Coordinates=35,435,53,51
 
 [BindSourceDB1]
 Coordinates=468,30,92,141
@@ -32,9 +32,6 @@ Visible=True
 
 [RESTResponse2]
 Coordinates=262,1,96,285
-
-[Button1]
-Coordinates=35,435,53,51
 
 [RESTRequest2]
 Coordinates=173,435,88,87
