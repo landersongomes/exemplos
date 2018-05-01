@@ -5,10 +5,8 @@ Apresentação / Declaração
 function SentencaBuscaIncremental(var aListaCampos, aComplWhere,
   aOrderBy: string; const aCampo, aOR_AND, aLimitador,
   aTexto: string): TStringList;
-
-
+  
 A função em contém os seguintes parâmetros:
-
 
 aListaCampos --> listagem dos campos a serem exibidos no select do SQL, normalmente indo até instrução "FROM [TABELA]" nos casos simples, ou finalizando nos "JOINs" em casos mais complexos. Uma definição mais simples seria tudo antes do "where".
 
@@ -34,33 +32,44 @@ var
  lSQLListaCampos, lSQLComplementoWhere, lSQLOrderBy : string;
  s : TStringList;
 begin
-  FDQuery1.Close;
-  FDQuery1.Params.Clear;
-  FDQuery1.SQL.Clear;
+FDQuery1.Close;
+FDQuery1.Params.Clear;
+FDQuery1.SQL.Clear;
 
-  lSQLListaCampos := 'select * from PRODUTOS' ;
-  lSQLComplementoWhere := ') ';
-  lSQLOrderBy := 'order by DESCRICAO ';
+lSQLListaCampos := 'select * from PRODUTOS' ;
+lSQLComplementoWhere := ') ';
+lSQLOrderBy := 'order by DESCRICAO ';
 
-  s := SentencaBuscaIncremental(lSQLListaCampos,   // lista de campos
-      lSQLComplementoWhere,                        // Complemento do Where
-      lSQLOrderBy,                                 //  order by
-      'DESCRICAO, COMPATIVEIS, CARACTERISTICAS',   // campos da busca separados por virgula
-      'AND',                                       // buscar (and ou or) campos
-      ' ',                                         // limitador de busca " " espaço
-      edtPesquisa.Text);                           // Texto a ser buscado nos campos
+s := SentencaBuscaIncremental(lSQLListaCampos,   // lista de campos
+    lSQLComplementoWhere,                        // Complemento do Where
+    lSQLOrderBy,                                 //  order by
+    'DESCRICAO, COMPATIVEIS, CARACTERISTICAS',   // campos da busca separados por virgula
+    'AND',                                       // buscar (and ou or) campos
+    ' ',                                         // limitador de busca " " espaço
+    edtPesquisa.Text);                           // Texto a ser buscado nos campos
 
-  FDQuery1.SQL.AddStrings(s);
-  FDQuery1.Active := True;
-  FDQuery1.First;
+
+FDQuery1.SQL.AddStrings(s);
+FDQuery1.Active := True;
+FDQuery1.First;
 end;
 ...
 ======
 
-Instrução SQL gerada após a execução:
+Instrução SQL gerada após a execução: (com o editPesquisa.text = 'BAT 9')
 
-select FIRST 30 ID_PRODUTO CODIGO, CODIGO_BARRA CODBARRA, DESCRICAO, ID_FABRICANTE CODFABRIC, NOME_FABRICANTE FABRICANTE, QUANTIDADE_EMBALAGEM, ESTOQUE_ATUAL, ESTOQUE_MINIMO, PRECO_CUSTO, PRECO_VENDA, PRECO_PROMOCAO,  produto.ATIVO, produto.ID_INMOBILI, EMPRESA_ALIAS, EMPRESA_COR from PRODUTO inner join empresa on empresa.id_inmobili = produto.ID_INMOBILI and empresa.id_inmobili_matriz =  :pIDInMobiliMatriz 
-where ((DESCRICAO like '%DORF%') 
- AND (DESCRICAO like '%30%')
-) and (produto.ID_INMOBILI = empresa.id_inmobili) 
+select * from PRODUTOS
+where ((DESCRICAO like '%BAT%') 
+ AND (DESCRICAO like '%9%')
+) 
+union
+select * from PRODUTOS
+where ((COMPATIVEIS like '%9%')
+) 
+union
+select * from PRODUTOS
+where ((CARACTERISTICAS like '%9%')
+) 
 order by DESCRICAO 
+
+.
