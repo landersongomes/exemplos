@@ -32,44 +32,47 @@ var
  lSQLListaCampos, lSQLComplementoWhere, lSQLOrderBy : string;
  s : TStringList;
 begin
-FDQuery1.Close;
-FDQuery1.Params.Clear;
-FDQuery1.SQL.Clear;
+  lSQLListaCampos := 'select * from pessoas';
+  lSQLWhereComplemento := 'and (pessoas.ativo = :ativo)';
+  lSQLOrderBy := 'order by nomerazao limit :limit';
+  DMCadastros.Query_Pessoas.Close;
+  DMCadastros.Query_Pessoas.SQL.Clear;
+  DMCadastros.Query_Pessoas.SQL := DMCadastros.SentencaBuscaIncremental(
+                        lSQLListaCampos, // lista de campos
+                        lSQLWhereComplemento,  // Complemento do Where
+                        lSQLOrderBy, //  order by
+                        'pessoas.nomerazao, pessoas.fantasia, pessoas.cnpj', // campo da busca
+                        'and', //and ou or
+                        ' ', // Limitador " " (espaço)
+                        EditBusca.Text);  // Texto a pesquisar
 
-lSQLListaCampos := 'select * from PRODUTOS' ;
-lSQLComplementoWhere := ') ';
-lSQLOrderBy := 'order by DESCRICAO ';
-
-s := SentencaBuscaIncremental(lSQLListaCampos,   // lista de campos
-    lSQLComplementoWhere,                        // Complemento do Where
-    lSQLOrderBy,                                 //  order by
-    'DESCRICAO, COMPATIVEIS, CARACTERISTICAS',   // campos da busca separados por virgula
-    'AND',                                       // buscar (and ou or) campos
-    ' ',                                         // limitador de busca " " espaço
-    edtPesquisa.Text);                           // Texto a ser buscado nos campos
-
-
-FDQuery1.SQL.AddStrings(s);
-FDQuery1.Active := True;
-FDQuery1.First;
-end;
+  DMCadastros.Query_Pessoas.ParamByName('ativo').AsInteger := 1;
+  DMCadastros.Query_Pessoas.ParamByName('limit').AsInteger := 100;
+  DMCadastros.Query_Pessoas.Open;    
 ...
 ======
 
-Instrução SQL gerada após a execução: (com o editPesquisa.text = 'BAT 9')
+Instrução SQL gerada após a execução: (com o EditBusca.Text = 'no t au')
 
-select * from PRODUTOS
-where ((DESCRICAO like '%BAT%') 
- AND (DESCRICAO like '%9%')
-) 
+select * from pessoas
+where ((pessoas.nomerazao like '%no%') 
+ and (pessoas.nomerazao like '%t%')
+ and (pessoas.nomerazao like '%au%')
+)
+and (pessoas.ativo = :ativo)
 union
-select * from PRODUTOS
-where ((COMPATIVEIS like '%9%')
-) 
+select * from pessoas
+where ((pessoas.fantasia like '%no%') 
+ and (pessoas.fantasia like '%t%')
+ and (pessoas.fantasia like '%au%')
+)
+and (pessoas.ativo = :ativo)
 union
-select * from PRODUTOS
-where ((CARACTERISTICAS like '%9%')
-) 
-order by DESCRICAO 
-
+select * from pessoas
+where ((pessoas.cnpj like '%no%') 
+ and (pessoas.cnpj like '%t%')
+ and (pessoas.cnpj like '%au%')
+)
+and (pessoas.ativo = :ativo)
+order by nomerazao limit :limit
 .
