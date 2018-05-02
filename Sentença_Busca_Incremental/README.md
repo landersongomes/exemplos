@@ -45,10 +45,9 @@ begin
                         'and', //and ou or
                         ' ', // Limitador " " (espaço)
                         EditBusca.Text);  // Texto a pesquisar
-
   DMCadastros.Query_Pessoas.ParamByName('ativo').AsInteger := 1;
   DMCadastros.Query_Pessoas.ParamByName('limit').AsInteger := 100;
-  DMCadastros.Query_Pessoas.Open;    
+  DMCadastros.Query_Pessoas.Open;
 ...
 ======
 
