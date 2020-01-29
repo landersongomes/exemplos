@@ -1,6 +1,7 @@
 unit Unit1;
 
 interface
+// Git por dentro do delphi
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
@@ -12,7 +13,8 @@ uses
   Fmx.Bind.DBEngExt, FMX.StdCtrls, FMX.Controls.Presentation,
   Data.Bind.Components, Data.Bind.DBScope, FMX.ListView, Data.DB,
   FireDAC.Comp.DataSet, FireDAC.Comp.Client, REST.Response.Adapter, REST.Client,
-  Data.Bind.ObjectScope, FMX.Objects, System.ImageList, FMX.ImgList, FMX.Effects;
+  Data.Bind.ObjectScope, FMX.Objects, System.ImageList, FMX.ImgList, FMX.Effects,
+  REST.Types;
 
 type
   TForm1 = class(TForm)

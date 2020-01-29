@@ -14,7 +14,6 @@ object Form1: TForm1
     ItemEditAppearanceClassName = 'TListItemShowCheckAppearance'
     HeaderAppearanceClassName = 'TListHeaderObjects'
     FooterAppearanceClassName = 'TListHeaderObjects'
-    ItemIndex = 1
     Align = Top
     Margins.Top = 10.000000000000000000
     Margins.Bottom = 2.000000000000000000
@@ -4564,7 +4563,6 @@ object Form1: TForm1
       'https://firestore.googleapis.com/v1beta1/projects/landersongomes' +
       '0101/databases/(default)/documents/clientes'
     Params = <>
-    HandleRedirects = True
     RaiseExceptionOn500 = False
     Left = 24
     Top = 96
@@ -4654,7 +4652,6 @@ object Form1: TForm1
       'https://firestore.googleapis.com/v1beta1/projects/landersongomes' +
       '0101/databases/(default)/documents/clientes'
     Params = <>
-    HandleRedirects = True
     RaiseExceptionOn500 = False
     Left = 24
     Top = 344
